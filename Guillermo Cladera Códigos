@@ -1,0 +1,26 @@
+# Importamos Pandas, Matplotlib y Seaborn.
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Cargamos los datos.
+df = pd.read_csv("../input/database/dataset_futbol_reales.csv")
+# Establecemos el estilo de la cuadrícula.
+sns.set_style("whitegrid")
+
+# Definimos el tamaño del lienzo.
+plt.figure(figsize=(10, 6))
+# LÍNEA CLAVE: Agrupamos por 'Posicion' y calculamos la media de 'Asistencias', ordenando de mayor a menor.
+avg_asistencias = df.groupby('Posicion')['Asistencias'].mean().sort_values(ascending=False)
+# Dibujamos el Gráfico de Barras. 'x' son las posiciones y 'y' son los valores promedio.
+sns.barplot(x=avg_asistencias.index, y=avg_asistencias.values, palette='plasma')
+# Añadimos el título.
+plt.title('3. Media de Asistencias por Posición', fontsize=16)
+# Etiquetamos el eje X.
+plt.xlabel('Posición', fontsize=12)
+# Etiquetamos el eje Y.
+plt.ylabel('Media de Asistencias', fontsize=12)
+# Ajustamos el diseño.
+plt.tight_layout()
+# Guardamos el gráfico.
+plt.savefig('3_Media_Asistencias_Posicion.png')
