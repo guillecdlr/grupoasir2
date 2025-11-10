@@ -1,3 +1,4 @@
+# Codigo 3
 # Importamos Pandas, Matplotlib y Seaborn.
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,7 +11,7 @@ sns.set_style("whitegrid")
 
 # Definimos el tamaño del lienzo.
 plt.figure(figsize=(10, 6))
-# LÍNEA CLAVE: Agrupamos por 'Posicion' y calculamos la media de 'Asistencias', ordenando de mayor a menor.
+# Agrupamos por 'Posicion' y calculamos la media de 'Asistencias', ordenando de mayor a menor.
 avg_asistencias = df.groupby('Posicion')['Asistencias'].mean().sort_values(ascending=False)
 # Dibujamos el Gráfico de Barras. 'x' son las posiciones y 'y' son los valores promedio.
 sns.barplot(x=avg_asistencias.index, y=avg_asistencias.values, palette='plasma')
@@ -24,3 +25,103 @@ plt.ylabel('Media de Asistencias', fontsize=12)
 plt.tight_layout()
 # Guardamos el gráfico.
 plt.savefig('3_Media_Asistencias_Posicion.png')
+
+
+
+
+
+
+
+
+
+# Codigo 4
+# Importamos Pandas, Matplotlib y Seaborn.
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Cargamos los datos de fútbol.
+df = pd.read_csv("../input/database/dataset_futbol_reales.csv")
+# Establecemos el estilo de la cuadrícula.
+sns.set_style("whitegrid")
+
+# Definimos el tamaño del lienzo de la figura.
+plt.figure(figsize=(8, 8))
+# Dibujamos el Scatter Plot (Gráfico de Dispersión).
+# 'x' e 'y' definen los ejes. 'hue' utiliza el color para diferenciar la 'Posicion' de cada jugador.
+sns.scatterplot(x='Goles', y='Asistencias', hue='Posicion', data=df, s=100, palette='Set1')
+# Añadimos el título.
+plt.title('4. Goles vs. Asistencias por Jugador (Scatter Plot)', fontsize=16)
+# Etiquetamos el eje X.
+plt.xlabel('Goles', fontsize=12)
+# Etiquetamos el eje Y.
+plt.ylabel('Asistencias', fontsize=12)
+# Mostramos la leyenda de las posiciones.
+plt.legend(title='Posición')
+# Ajustamos el diseño.
+plt.tight_layout()
+# Guardamos el gráfico.
+plt.savefig('4_Scatter_Goles_Asistencias.png')
+
+
+
+
+
+
+
+
+# Codigo 5
+# Importamos Pandas, Matplotlib y Seaborn.
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Cargamos los datos.
+df = pd.read_csv("../input/database/dataset_futbol_reales.csv")
+# Establecemos el estilo base.
+sns.set_style("whitegrid")
+
+# Definimos el tamaño del lienzo.
+plt.figure(figsize=(8, 8))
+# Contamos la frecuencia de cada valor en la columna 'Posicion'.
+pos_counts = df['Posicion'].value_counts()
+# Dibujamos el Gráfico Circular (Pie Chart). 
+# 'pos_counts' son los valores, 'labels' son los nombres de las posiciones.
+# 'autopct' muestra el porcentaje dentro de cada porción.
+plt.pie(pos_counts, labels=pos_counts.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette('pastel'))
+# Añadimos el título.
+plt.title('5. Distribución de Jugadores por Posición (Gráfico Circular)', fontsize=16)
+# Ajustamos el diseño.
+plt.tight_layout()
+# Guardamos el gráfico.
+plt.savefig('5_Distribucion_Jugadores_Pie.png')
+
+
+
+
+
+
+
+# Codigo 6
+# Importamos las librerías necesarias: Pandas para manejo de datos, Matplotlib y Seaborn para gráficos.
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Cargamos el archivo CSV con las estadísticas de fútbol en un DataFrame (df).
+df = pd.read_csv("../input/database/dataset_futbol_reales.csv")
+# Establecemos el estilo de fondo para el gráfico.
+sns.set_style("whitegrid")
+
+# Definimos el tamaño del lienzo de la figura.
+plt.figure(figsize=(10, 8))
+# Calculamos la matriz de correlación entre las 5 variables seleccionadas.
+corr_matrix = df[['Goles', 'Asistencias', 'Pases', 'Regates', 'Entradas']].corr()
+# Dibujamos el Mapa de Calor: 'annot=True' muestra los números, 'cmap' define los colores (coolwarm).
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
+# Añadimos el título al gráfico.
+plt.title('6. Mapa de Calor de Correlación de Estadísticas', fontsize=16)
+# Ajustamos el diseño para que todo encaje.
+plt.tight_layout()
+# Guardamos el gráfico como un archivo PNG.
+plt.savefig('6_Mapa_Calor_Correlacion.png')
